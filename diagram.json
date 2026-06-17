@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "author": "smart-coop",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": -250,
+      "left": -250,
+      "attrs": { "pins": "i2c" }
+    },
+    { "type": "wokwi-dht22", "id": "dht", "top": -200, "left": 200, "attrs": {} },
+    { "type": "wokwi-servo", "id": "srvDoor", "top": 100, "left": 300, "attrs": {} },
+    { "type": "wokwi-servo", "id": "srvVent", "top": 200, "left": 300, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relHeat", "top": -50, "left": -300, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relLight", "top": 60, "left": -300, "attrs": {} },
+    { "type": "wokwi-dc-motor", "id": "fan", "top": 250, "left": -200, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnDayNight",
+      "top": 350,
+      "left": -150,
+      "attrs": { "color": "blue" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnTempUp",
+      "top": 350,
+      "left": -50,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnTempDown",
+      "top": 350,
+      "left": 50,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnHumUp",
+      "top": 350,
+      "left": 150,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnHumDown",
+      "top": 350,
+      "left": 250,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledLight",
+      "top": 60,
+      "left": -450,
+      "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rLight",
+      "top": 60,
+      "left": -400,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledHeat",
+      "top": -50,
+      "left": -450,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rHeat",
+      "top": -50,
+      "left": -400,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "lcd:VCC", "esp:3V3", "red", [] ],
+    [ "lcd:GND", "esp:GND.1", "black", [] ],
+    [ "lcd:SDA", "esp:D21", "green", [] ],
+    [ "lcd:SCL", "esp:D22", "yellow", [] ],
+    [ "dht:VCC", "esp:3V3", "red", [] ],
+    [ "dht:GND", "esp:GND.1", "black", [] ],
+    [ "dht:SDA", "esp:D4", "green", [] ],
+    [ "srvDoor:V+", "esp:VIN", "red", [] ],
+    [ "srvDoor:GND", "esp:GND.1", "black", [] ],
+    [ "srvDoor:PWM", "esp:D13", "green", [] ],
+    [ "srvVent:V+", "esp:VIN", "red", [] ],
+    [ "srvVent:GND", "esp:GND.1", "black", [] ],
+    [ "srvVent:PWM", "esp:D14", "green", [] ],
+    [ "relHeat:VCC", "esp:VIN", "red", [] ],
+    [ "relHeat:GND", "esp:GND.1", "black", [] ],
+    [ "relHeat:IN", "esp:D25", "green", [] ],
+    [ "relHeat:COM", "esp:VIN", "red", [] ],
+    [ "relHeat:NO", "rHeat:1", "red", [] ],
+    [ "rHeat:2", "ledHeat:A", "red", [] ],
+    [ "ledHeat:C", "esp:GND.1", "black", [] ],
+    [ "relLight:VCC", "esp:VIN", "red", [] ],
+    [ "relLight:GND", "esp:GND.1", "black", [] ],
+    [ "relLight:IN", "esp:D26", "green", [] ],
+    [ "relLight:COM", "esp:VIN", "red", [] ],
+    [ "relLight:NO", "rLight:1", "red", [] ],
+    [ "rLight:2", "ledLight:A", "red", [] ],
+    [ "ledLight:C", "esp:GND.1", "black", [] ],
+    [ "fan:1", "esp:D32", "green", [] ],
+    [ "fan:2", "esp:GND.1", "black", [] ],
+    [ "btnDayNight:1.l", "esp:D15", "green", [] ],
+    [ "btnDayNight:2", "esp:GND.1", "black", [] ],
+    [ "btnTempUp:1.l", "esp:D16", "green", [] ],
+    [ "btnTempUp:2", "esp:GND.1", "black", [] ],
+    [ "btnTempDown:1.l", "esp:D17", "green", [] ],
+    [ "btnTempDown:2", "esp:GND.1", "black", [] ],
+    [ "btnHumUp:1.l", "esp:D33", "green", [] ],
+    [ "btnHumUp:2", "esp:GND.1", "black", [] ],
+    [ "btnHumDown:1.l", "esp:D2", "green", [] ],
+    [ "btnHumDown:2", "esp:GND.1", "black", [] ],
+    [ "esp:21", "lcd:SDA", "green", [ "h0" ] ],
+    [ "lcd:SCL", "esp:22", "green", [ "h0" ] ],
+    [ "btnDayNight:1.r", "esp:15", "green", [ "v0" ] ],
+    [ "btnTempUp:1.r", "esp:16", "green", [ "v0" ] ],
+    [ "btnTempDown:1.r", "esp:17", "green", [ "v0" ] ],
+    [ "btnHumUp:1.r", "esp:33", "green", [ "v0" ] ],
+    [ "btnHumDown:1.r", "esp:2", "green", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
